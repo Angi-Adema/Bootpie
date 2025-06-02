@@ -63,7 +63,9 @@ public class PieService {
     // TODO: Create custom query.
     public List<Pie> getPiesByCalories(int limit) throws ResourceNotFoundException {
 
-        List<Pie> caloriePieList = new ArrayList<>();
+        List<Pie> caloriePieList = pieRepository.findByCaloriesLessThan(limit);
+        if(caloriePieList.isEmpty()) throw new ResourceNotFoundException("No pies exist with calories equal to or lower than " + limit);
+        return caloriePieList;
 
         // for (Pie pie : pieList) {
         //     if (pie.getCalories() <= limit) {
@@ -74,7 +76,7 @@ public class PieService {
         //     if (caloriePieList.isEmpty()) {
         //         throw new ResourceNotFoundException("No pies exist with calories equal to or lower than " + limit);
         //     } else {
-                return caloriePieList;
+                //return caloriePieList;
             
         }
 
