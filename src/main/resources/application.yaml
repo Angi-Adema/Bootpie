@@ -1,0 +1,4 @@
+#Can use a YAML file instead of the properties file for configuration. Just need to delete the properties file.
+spring:
+  application:
+    name: PieRouletteYAML
