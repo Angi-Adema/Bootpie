@@ -1,9 +1,20 @@
 package com.revature.BootPie.models;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table
 public class Pie {
     
+    @Id
+    @Column(name = "pie_name")
     private String pieName;
     private int calories;
+
+    @Column(name = "slices_available")
     private int slicesAvailable;
     
     public Pie() {
