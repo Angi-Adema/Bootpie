@@ -10,9 +10,13 @@ import org.springframework.stereotype.Service;
 
 import com.revature.BootPie.exceptions.ResourceNotFoundException;
 import com.revature.BootPie.models.Consumer;
+import com.revature.BootPie.models.Pie;
 import com.revature.BootPie.repositories.ConsumerRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class ConsumerService {
     
     // private List<Consumer> consumerList = new ArrayList<>();
@@ -65,5 +69,12 @@ public class ConsumerService {
         //     }
         // }
         // throw new AuthenticationException("Check username and password credentials as they are invalid.");
+    }
+
+    // @Transactional(readOnly = true)  // Prevents any dirty checking.
+    public List<Consumer> findAllConsumersByLastPie(String pieName) {
+        Pie pie = pieService.findPie(pieName);
+        // pie.setSlicesAvailable(0);
+        return (List<Consumer>) consumerRepository.findAllConsumersByLastPie(pie);
     }
 }

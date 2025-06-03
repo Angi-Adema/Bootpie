@@ -1,12 +1,16 @@
 package com.revature.BootPie.controllers;
 
+import java.util.List;
+
 import javax.naming.AuthenticationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -52,6 +56,13 @@ public class ConsumerController {
         consumerService.order(username, pieName);
         return ResponseEntity.accepted()
                             .body(username + " ordered " + pieName + " pie.");
+    }
+
+    // Finding everyone and filtering by the last pie they ordered.
+    @GetMapping("byLastPie/{pieName}")
+    public ResponseEntity<List<Consumer>> findConsumerByLastPie(@PathVariable String pieName) {
+        return ResponseEntity.ok()
+                            .body(consumerService.findAllConsumersByLastPie(pieName));
     }
 
     @ExceptionHandler(AuthenticationException.class)
